@@ -4,6 +4,13 @@ use Illuminate\Support\ServiceProvider;
 
 class SmsServiceProvider extends ServiceProvider {
 
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
 	/**
 	 * Bootstrap the application services.
 	 *
@@ -11,6 +18,7 @@ class SmsServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+
         //Publishes package config file to applications config folder
         $config     = realpath(__DIR__.'/config/config.php');
         $this->publishes([
@@ -35,5 +43,16 @@ class SmsServiceProvider extends ServiceProvider {
             return new Sms($config);
         });
 	}
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['Proengsoft\SMS\Sms'];
+    }
+
 
 }
